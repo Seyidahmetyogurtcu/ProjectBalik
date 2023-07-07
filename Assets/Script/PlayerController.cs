@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float boostCooldown = 5f;
 
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     private float boostTimer = 0f;
 
@@ -21,15 +22,28 @@ public class PlayerController : MonoBehaviour
 
     private bool canBoost = true;
 
+    private bool isInverted = false;
+
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
     }
 
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        
+        
+        if ((!isInverted && horizontal < 0) || (isInverted && horizontal > 0))
+        {
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+            isInverted = !isInverted;
+        }
+
         Vector2 direction = new Vector2(horizontal, vertical);
 
         direction.Normalize();
