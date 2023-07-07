@@ -22,10 +22,6 @@ public class PlayerController : MonoBehaviour
 
     private bool canBoost = true;
 
-    private bool isInverted = false;
-
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,12 +32,11 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
-        
+
+        bool isInverted = spriteRenderer.flipX;
         if ((!isInverted && horizontal < 0) || (isInverted && horizontal > 0))
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
-            isInverted = !isInverted;
+            spriteRenderer.flipX = !isInverted;
         }
 
         Vector2 direction = new Vector2(horizontal, vertical);
